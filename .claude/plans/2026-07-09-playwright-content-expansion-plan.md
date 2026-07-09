@@ -100,16 +100,23 @@ Teach scope discipline: Playwright for critical user journeys and system wiring,
 
 - Teach codegen as a drafting tool, not final test quality.
 - Show: generate, edit manually, improve locators/assertions, extract helpers.
+- Add a single walkthrough script (in `tests/EndToEndTests/README.md`) that ends with an intentional failing run and produces `failure.png`, `trace.zip`, and `video/` artifacts for Level 2.
 
-### Level 2: Copilot/LLM Refactor Prompt
+### Level 2: LLM Refactor Prompt
 
-Add a reusable prompt example in docs:
+Add a Claude skill in .claude/skills to perform a Playwright test refactor:
 
+- use agentskills.io for skill schema
 - Refactor generated Playwright .NET test into readable xUnit tests.
 - Prefer role-based locators.
 - Extract helpers only when readability improves.
 - Avoid implementation-detail assertions.
 - Preserve user intent.
+
+Implemented artifacts:
+
+- `.claude/skills/playwright-dotnet-refactor/SKILL.md`
+- `.claude/skills/playwright-dotnet-refactor/assets/refactor-prompt-template.md`
 
 ### Level 3: Playwright MCP/Agent Workflow
 

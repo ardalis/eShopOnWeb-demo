@@ -44,6 +44,52 @@ The smoke test starts the Web app automatically using its normal launch profile 
    - `Playwright/SmokeTests.cs` for a minimal baseline scenario.
    - `Playwright/CatalogTests.cs` and `Playwright/Pages/CatalogPage.cs` for intent-revealing helper usage.
 
+## Level 1 demo script: codegen draft to artifact-producing run
+
+Use this walkthrough when teaching the full authoring loop. It intentionally ends with a failing run so Level 2 can inspect real artifacts.
+
+1. Build and install browsers (first run only):
+
+   dotnet build tests/EndToEndTests/EndToEndTests.csproj
+   pwsh tests/EndToEndTests/bin/Debug/net10.0/playwright.ps1 install
+
+2. Generate a draft with Playwright codegen:
+
+   pwsh tests/EndToEndTests/bin/Debug/net10.0/playwright.ps1 codegen <https://localhost:5001>
+
+3. In the codegen browser, perform this short flow:
+
+   - Open home page.
+   - Click the first `Add to Basket` button.
+   - Click `Basket`.
+   - Confirm a basket line item is visible.
+
+4. Save generated output as a draft and clean it:
+
+   - Keep a copy of generated draft code for comparison.
+   - Refactor selectors toward `GetByRole`/`GetByText`/`GetByTestId`.
+   - Keep assertions user-visible and intent-based.
+
+5. Enable the intentional failure demo test in `Playwright/BasketTests.cs`:
+
+   - Remove the `Skip` value from `Cart_AddItem_ShowsExpectedTotal`.
+
+6. Run only the intentional failure test:
+
+   dotnet test tests/EndToEndTests/EndToEndTests.csproj --filter FullyQualifiedName~BasketTests.Cart_AddItem_ShowsExpectedTotal
+
+7. Verify artifacts were produced under:
+
+   - `TestResults/PlaywrightArtifacts/<test-name>-<timestamp>/failure.png`
+   - `TestResults/PlaywrightArtifacts/<test-name>-<timestamp>/trace.zip`
+   - `TestResults/PlaywrightArtifacts/<test-name>-<timestamp>/video/`
+
+8. Reset the failure test to keep default suite green:
+
+   - Restore the `Skip` value after the demo.
+
+This completes Level 1 and provides concrete artifacts for Level 2 analysis/refactor/diagnostics practice.
+
 ## Track 2: Debugging with traces, screenshots, and video
 
 This repo includes an intentionally failing basket test scenario in `Playwright/BasketTests.cs`.
