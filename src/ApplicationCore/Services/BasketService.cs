@@ -20,7 +20,7 @@ public class BasketService : IBasketService
         _logger = logger;
     }
 
-    public async Task<Basket> AddItemToBasket(string username, int catalogItemId, decimal price, int quantity = 1)
+    public async Task<Basket> AddItemToBasket(string username, int catalogItemId, decimal price, int quantity = 2) // TODO: return quantity default to 1 after demo
     {
         var basketSpec = new BasketWithItemsSpecification(username);
         var basket = await _basketRepository.FirstOrDefaultAsync(basketSpec);
