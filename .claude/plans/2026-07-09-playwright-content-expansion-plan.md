@@ -176,15 +176,15 @@ Planned shape:
   - [x] Configure artifact output paths and reporter behavior.
   - [x] Document local and hosted trace viewing flow.
 
-- [ ] Phase 3: Track 3 Strategy and AI Guidance
-  - [ ] Add strategy section to docs and EndToEnd README.
-  - [ ] Add AI workflow script and reusable prompt.
-  - [ ] Add at least one example per category (smoke, critical journey, fragile legacy).
+- [x] Phase 3: Track 3 Strategy and AI Guidance
+  - [x] Add strategy section to docs and EndToEnd README.
+  - [x] Add AI workflow script and reusable prompt.
+  - [x] Add at least one example per category (smoke, critical journey, fragile legacy).
 
-- [ ] Phase 4: Stabilization
-  - [ ] Ensure tests are deterministic and not timing-fragile.
-  - [ ] Validate local run instructions from clean environment.
-  - [ ] Verify docs and commands are copy/paste ready.
+- [x] Phase 4: Stabilization
+  - [x] Ensure tests are deterministic and not timing-fragile.
+  - [x] Validate local run instructions from clean environment.
+  - [x] Verify docs and commands are copy/paste ready.
 
 ## Validation Checklist
 
