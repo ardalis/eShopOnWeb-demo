@@ -34,8 +34,47 @@ Some of the things seen in the functional tests include:
 ## Architecture Tests
 
 We have examples of architecture tests in the [sadukie/ArchUnitNET-tests branch](https://github.com/NimblePros/eShopOnWeb/tree/sadukie/ArchUnitNET-tests). Sadukie covers these architecture tests in:
+
 - [Architecture Testing for .NET webinar](https://mailchi.mp/nimblepros/arch-testing-for-dotnet-recording)
 - [Getting Started with Architecture Testing blog post](https://blog.nimblepros.com/blogs/getting-started-with-archunitnet/)
+
+## Browser Test Strategy (Playwright)
+
+Use Playwright to verify the system is wired together correctly from the user perspective, not to exhaustively prove every business rule.
+
+### Bad Strategy vs Better Strategy
+
+- Bad: test every combination of discounts, pricing rules, and validation rules through browser automation.
+- Better: keep browser tests focused on critical user journeys and confidence checks at app boundaries; move rule combinations to unit/integration/API tests.
+
+### eShopOnWeb Test Layer Matrix
+
+| Scenario Type | Example in eShopOnWeb | Best Layer |
+| --- | --- | --- |
+| Smoke | Home page loads and seeded products are visible | Playwright end-to-end |
+| Critical journey | Add item to basket and verify basket outcome | Playwright end-to-end |
+| Business rule permutations | Pricing, discount, quantity edge combinations | Unit tests + integration tests |
+| API contract behavior | Endpoint status, payload, auth policy | Public API integration tests |
+| Fragile legacy UI coverage (temporary) | High-value flow with unstable selectors during UI transition | Playwright end-to-end with explicit cleanup plan |
+
+## AI-Assisted Playwright Workflow
+
+Use this workflow for agent-assisted test authoring while preserving human control over quality.
+
+1. Ask the agent to explore catalog and basket flows and summarize candidate user journeys.
+2. Ask for 3-5 scenario proposals and require each to be tagged as smoke, critical journey, or lower-level-test candidate.
+3. Ask the agent to draft one Playwright C# test for a selected scenario.
+4. Human review gate:
+ - Preserve user intent.
+ - Prefer role/text/test-id locators.
+ - Keep assertions user-visible.
+5. Run targeted tests first, then broader suite.
+6. On failure, inspect trace, screenshot, and video artifacts.
+7. Ask the agent to diagnose from failure output and artifacts, then apply minimal fix.
+
+Reusable Level 2 refactor prompt:
+
+- `.claude/skills/playwright-dotnet-refactor/assets/refactor-prompt-template.md`
 
 ## Resources
 
