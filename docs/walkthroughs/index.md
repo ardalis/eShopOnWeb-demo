@@ -25,3 +25,7 @@ We've created several walkthroughs to help demonstrate how easily you can deploy
 ## Adding New Features using Visual Studio for Mac
 
 - [Working with the Project and Adding New Features using Visual Studio for Mac]({{ site.baseurl }}/walkthroughs/vs-for-mac)
+
+## Testing and QA Walkthroughs
+
+- [Playwright Lab Manual and Instructor Notes]({{ site.baseurl }}/walkthroughs/playwright-lab-manual-instructor-notes)
