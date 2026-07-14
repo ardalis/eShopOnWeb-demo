@@ -9,7 +9,7 @@ public sealed class BasketTests(BrowserFixture browserFixture) : IClassFixture<B
     [Fact]
     public async Task Basket_AddSingleItemFromCatalog_ShowsQuantityOne()
     {
-        // Repro for https://github.com/ardalis/eShopOnWeb-demo/issues/1
+        // Repro for https://github.com/ardalis/eShopOnWeb-demo/issues/3
         (IBrowserContext context, string outputDirectory) =
             await browserFixture.CreateDebugContextAsync(nameof(Basket_AddSingleItemFromCatalog_ShowsQuantityOne));
 
