@@ -1,16 +1,17 @@
-﻿var builder = DistributedApplication.CreateBuilder(args);
+var builder = DistributedApplication.CreateBuilder(args);
 
 var seq = builder.AddSeq("seq")
                  .ExcludeFromManifest()
                  .WithLifetime(ContainerLifetime.Persistent)
                  .WithEnvironment("ACCEPT_EULA", "Y");
+
 builder
-    .AddProject<Projects.PublicApi>(nameof(Projects.PublicApi).ToLower())
+    .AddDotnetProject("publicapi", "../PublicApi/PublicApi.csproj")
         .WithReference(seq)
         .WaitFor(seq);
 
 builder
-    .AddProject<Projects.Web>(nameof(Projects.Web).ToLower())
+    .AddDotnetProject("web", "../Web/Web.csproj")
         .WithReference(seq)
         .WaitFor(seq);
 

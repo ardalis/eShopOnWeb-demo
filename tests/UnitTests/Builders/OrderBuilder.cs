@@ -11,11 +11,11 @@ public class OrderBuilder
     public string TestPictureUri => "http://test.com/image.jpg";
     public decimal TestUnitPrice = 1.23m;
     public int TestUnits = 3;
-    public CatalogItemOrdered TestCatalogItemOrdered { get; }
+    // Owned entity types must not share an instance across owners (enforced by EF Core 11), so return a new copy each time.
+    public CatalogItemOrdered TestCatalogItemOrdered => new(TestCatalogItemId, TestProductName, TestPictureUri);
 
     public OrderBuilder()
     {
-        TestCatalogItemOrdered = new CatalogItemOrdered(TestCatalogItemId, TestProductName, TestPictureUri);
         _order = WithDefaultValues();
     }
 
