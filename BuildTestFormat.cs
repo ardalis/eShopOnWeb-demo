@@ -38,7 +38,7 @@ try
         string projectName = GetProjectName(projectPath);
         string projectDirectory = Path.GetDirectoryName(projectPath)!;
 
-        CommandResult testResult = await RunAsync("dotnet", $"test --no-build --logger \"console;verbosity=minimal\" \"{projectPath}\"", projectDirectory);
+        CommandResult testResult = await RunAsync("dotnet", $"test --no-build --project \"{projectPath}\"", projectDirectory);
 
         if (testResult.ExitCode != 0)
         {
@@ -111,12 +111,12 @@ static string FormatElapsed(TimeSpan elapsed)
 
 static bool TryParseTestSummary(string output, out int passed, out int failed, out int total)
 {
-    Match match = Regex.Match(
-        output,
-        @"Failed:\s*(\d+),\s*Passed:\s*(\d+),\s*Skipped:\s*(\d+),\s*Total:\s*(\d+)",
-        RegexOptions.Multiline);
+    // Microsoft.Testing.Platform summary lines, e.g. "  total: 44", "  failed: 0", "  succeeded: 44"
+    Match totalMatch = Regex.Match(output, @"^\s*total:\s*(\d+)", RegexOptions.Multiline);
+    Match failedMatch = Regex.Match(output, @"^\s*failed:\s*(\d+)", RegexOptions.Multiline);
+    Match succeededMatch = Regex.Match(output, @"^\s*succeeded:\s*(\d+)", RegexOptions.Multiline);
 
-    if (!match.Success)
+    if (!totalMatch.Success || !failedMatch.Success || !succeededMatch.Success)
     {
         passed = 0;
         failed = 0;
@@ -124,9 +124,9 @@ static bool TryParseTestSummary(string output, out int passed, out int failed, o
         return false;
     }
 
-    failed = int.Parse(match.Groups[1].Value);
-    passed = int.Parse(match.Groups[2].Value);
-    total = int.Parse(match.Groups[4].Value);
+    failed = int.Parse(failedMatch.Groups[1].Value);
+    passed = int.Parse(succeededMatch.Groups[1].Value);
+    total = int.Parse(totalMatch.Groups[1].Value);
     return true;
 }
 

@@ -16,11 +16,11 @@ This project contains browser-based end-to-end tests using Playwright for .NET.
 
 2. Install browser binaries:
 
-   pwsh tests/EndToEndTests/bin/Debug/net10.0/playwright.ps1 install
+   pwsh tests/EndToEndTests/bin/Debug/net11.0/playwright.ps1 install
 
 ## Run tests
 
-dotnet test tests/EndToEndTests/EndToEndTests.csproj
+dotnet test --project tests/EndToEndTests/EndToEndTests.csproj
 
 The smoke test starts the Web app automatically using its normal launch profile (<https://localhost:5001>), loads the home page, and validates seeded catalog data is rendered.
 
@@ -28,7 +28,7 @@ The smoke test starts the Web app automatically using its normal launch profile 
 
 1. Generate a first draft test:
 
-   pwsh tests/EndToEndTests/bin/Debug/net10.0/playwright.ps1 codegen <https://localhost:5001>
+   pwsh tests/EndToEndTests/bin/Debug/net11.0/playwright.ps1 codegen <https://localhost:5001>
 
 2. Paste the generated code into a test file as a draft.
 
@@ -51,11 +51,11 @@ Use this walkthrough when teaching the full authoring loop. It intentionally end
 1. Build and install browsers (first run only):
 
    dotnet build tests/EndToEndTests/EndToEndTests.csproj
-   pwsh tests/EndToEndTests/bin/Debug/net10.0/playwright.ps1 install
+   pwsh tests/EndToEndTests/bin/Debug/net11.0/playwright.ps1 install
 
 2. Generate a draft with Playwright codegen:
 
-   pwsh tests/EndToEndTests/bin/Debug/net10.0/playwright.ps1 codegen <https://localhost:5001>
+   pwsh tests/EndToEndTests/bin/Debug/net11.0/playwright.ps1 codegen <https://localhost:5001>
 
 3. In the codegen browser, perform this short flow:
 
@@ -76,7 +76,7 @@ Use this walkthrough when teaching the full authoring loop. It intentionally end
 
 6. Run only the intentional failure test:
 
-   dotnet test tests/EndToEndTests/EndToEndTests.csproj --filter FullyQualifiedName~BasketTests.Cart_AddItem_ShowsExpectedTotal
+   dotnet test --project tests/EndToEndTests/EndToEndTests.csproj --filter-method "*BasketTests.Cart_AddItem_ShowsExpectedTotal"
 
 7. Verify artifacts were produced under:
 
@@ -108,15 +108,15 @@ This repo includes an intentionally failing basket test scenario in `Playwright/
 
 1. Run tests:
 
-   dotnet test tests/EndToEndTests/EndToEndTests.csproj
+   dotnet test --project tests/EndToEndTests/EndToEndTests.csproj
 
 2. Optional: produce structured test result output:
 
-   dotnet test tests/EndToEndTests/EndToEndTests.csproj --logger "trx;LogFileName=endtoend.trx"
+   dotnet test --project tests/EndToEndTests/EndToEndTests.csproj --report-trx --report-trx-filename endtoend.trx
 
 3. Open trace locally with Playwright:
 
-   pwsh tests/EndToEndTests/bin/Debug/net10.0/playwright.ps1 show-trace TestResults/PlaywrightArtifacts/<folder>/trace.zip
+   pwsh tests/EndToEndTests/bin/Debug/net11.0/playwright.ps1 show-trace TestResults/PlaywrightArtifacts/<folder>/trace.zip
 
 4. Or open trace in hosted viewer:
 
@@ -157,7 +157,7 @@ Use this script to demonstrate an agent-assisted authoring loop with human revie
    - Ensure assertions are user-observable.
 5. Run targeted test(s):
 
-   dotnet test tests/EndToEndTests/EndToEndTests.csproj --filter FullyQualifiedName~CatalogTests
+   dotnet test --project tests/EndToEndTests/EndToEndTests.csproj --filter-class "*CatalogTests"
 
 6. If failure occurs, inspect generated artifacts (`failure.png`, `trace.zip`, `video/`) under `TestResults/PlaywrightArtifacts/`.
 7. Ask the agent to diagnose using failing assertion details and trace/artifact observations.

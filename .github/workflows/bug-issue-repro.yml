@@ -28,7 +28,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '10.0.x'
+          dotnet-version: '11.0.x'
 
       # Kestrel needs a dev cert to bind https://localhost:5001; the test
       # fixture and Playwright both ignore HTTPS errors, so no trust needed.
@@ -41,7 +41,7 @@ jobs:
         run: dotnet build ${{ env.SOLUTION_FILE }}
 
       - name: Install Playwright browsers
-        run: pwsh tests/EndToEndTests/bin/Debug/net10.0/playwright.ps1 install --with-deps chromium
+        run: pwsh tests/EndToEndTests/bin/Debug/net11.0/playwright.ps1 install --with-deps chromium
 
       - name: Attempt repro with Claude
         uses: anthropics/claude-code-action@v1
@@ -59,7 +59,7 @@ jobs:
             - The solution is already built (Debug) and Playwright Chromium is
               installed. The Playwright fixture starts the web app itself; do NOT
               start the app manually. Run tests with:
-              `dotnet test tests/EndToEndTests/EndToEndTests.csproj --no-build --filter FullyQualifiedName~<TestName>`
+              `dotnet test --project tests/EndToEndTests/EndToEndTests.csproj --no-build --filter-method "*<TestName>"`
             - Artifacts (failure.png, trace.zip, video/) are written under
               TestResults/PlaywrightArtifacts/. After this job finishes they are
               uploaded to the workflow run as an artifact named

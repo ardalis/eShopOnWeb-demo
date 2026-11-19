@@ -190,7 +190,7 @@ Planned shape:
 
 - `dotnet build tests/EndToEndTests/EndToEndTests.csproj`
 - `pwsh tests/EndToEndTests/bin/Debug/net10.0/playwright.ps1 install`
-- `dotnet test tests/EndToEndTests/EndToEndTests.csproj`
+- `dotnet test --project tests/EndToEndTests/EndToEndTests.csproj`
 - Confirm HTML report and trace artifact generation works.
 - Confirm documentation matches actual commands and paths.
 

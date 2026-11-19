@@ -63,7 +63,6 @@ public static class WebApplicationExtensions
             app.UseDeveloperExceptionPage();
             app.UseShowAllServicesMiddleware();
             app.UseMigrationsEndPoint();
-            app.UseWebAssemblyDebugging();
             app.UseMetronomeLoggingMiddleware();
         }
         else

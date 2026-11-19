@@ -9,7 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" />
     <PackageReference Include="Aspire.Seq" />
     <PackageReference Include="FastEndpoints" />
     <PackageReference Include="FastEndpoints.Swagger" />
@@ -25,6 +24,9 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" />
+    <!-- Pin patched NuGet.* (GHSA-g4vj-cjjj-v7hg); CodeGeneration.Design 10.0.3 pulls 6.12.1 -->
+    <PackageReference Include="NuGet.Packaging" />
+    <PackageReference Include="NuGet.Protocol" />
     <PackageReference Include="NimblePros.Metronome" />     
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" />
   </ItemGroup>
